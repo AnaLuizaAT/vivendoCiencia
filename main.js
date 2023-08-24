@@ -79,7 +79,7 @@ cards.forEach(card => {
 function updateSelectedCardsInput() {
     document.getElementById('atividades').value = [
         ...document.querySelectorAll('.card.selected h3')
-    ].map(e => e.innerText).join(', ')
+    ].map(e => e.innerText).join(',' + "\n")
 }
 
 function getSelectedCardsValue() {
