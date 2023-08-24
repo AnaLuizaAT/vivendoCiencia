@@ -82,11 +82,18 @@ function updateSelectedCardsInput() {
     ].map(e => e.innerText).join(',' + "\n")
 }
 
+function getSelectedCardsValue() {
+    return [...document.querySelectorAll('.card.selected')]
+        .map(e => parseFloat(e.dataset.value))
+        .reduce((total, value) => total + value, 0)
+}
+
 var modal = document.getElementById('myModal')
 var btn = document.getElementsByClassName('open-modal-btn')[0]
 var span = document.getElementsByClassName('close')[0]
 
 btn.onclick = function () {
+    document.getElementById('pix-value').innerText = getSelectedCardsValue().toLocaleString(undefined, { style: 'currency', currency: 'BRL' })
     modal.style.display = 'block'
 }
 
@@ -102,6 +109,7 @@ window.onclick = function (event) {
 
 const fileInput = document.getElementById('comprovante')
 const fileNameSpan = document.getElementById('file-name')
+
 fileInput.addEventListener('change', function () {
     if (fileInput.files.length > 0) {
         const fileName = fileInput.files[0].name
