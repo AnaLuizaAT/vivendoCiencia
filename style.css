@@ -975,3 +975,19 @@ mark {
 #file-name {
     margin-bottom: 1.5rem;
 }
+
+#buy-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 64px;
+    height: 64px;
+    background-color: rgb(0, 139, 0);
+    padding-right: 3px;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
