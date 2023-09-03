@@ -89,13 +89,17 @@ function getSelectedCardsValue() {
 }
 
 var modal = document.getElementById('myModal')
+var buyBtn = document.getElementById('buy-btn')
 var btn = document.getElementsByClassName('open-modal-btn')[0]
 var span = document.getElementsByClassName('close')[0]
 
-btn.onclick = function () {
+const openModal = () => {
     document.getElementById('pix-value').innerText = getSelectedCardsValue().toLocaleString(undefined, { style: 'currency', currency: 'BRL' })
     modal.style.display = 'block'
 }
+
+btn.onclick = openModal
+buyBtn.onclick = openModal
 
 span.onclick = function () {
     modal.style.display = 'none'
