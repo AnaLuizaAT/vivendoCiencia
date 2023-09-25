@@ -81,6 +81,13 @@ cards.forEach((card, index) => {
   });
 });
 
+
+function validadeUploadInput() {
+    if (!fileInput.value) {
+        fileNameSpan.innerHTML = "<b>Você não selecionou nenhuma imagem do comprovante</b>";
+    }
+}
+
 function updateSelectedCardsInput(event) {
   document.getElementById("atividades").value = [
     ...document.querySelectorAll(".card.selected h3"),
