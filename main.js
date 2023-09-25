@@ -60,28 +60,42 @@ ScrollReveal({
 
 const cards = document.querySelectorAll(".card");
 const cardsContainer = document.querySelector(".cards");
-cards.forEach((card) => {
+let selectedCardIndexs = []
+cards.forEach((card, index) => {
   card.addEventListener("click", () => {
     // verifica se já tá selecionado e remove a classe
     if (card.classList.contains("selected")) {
       card.classList.remove("selected");
       card.style.backgroundColor = "#ffffff";
       card.style.border = "1px solid hsl(calc(var(--hue) - 22), 23%, 89%)";
+      selectedCardIndexs = selectedCardIndexs.filter(e => e !== index)
     } else {
       // se não tiver selecionado, adiciona a classe
       card.classList.add("selected");
       card.style.backgroundColor = "#56f86c";
       card.style.border = "1px solid #008b00";
+      selectedCardIndexs.push(index)
     }
+
+    localStorage.setItem('cards', JSON.stringify(selectedCardIndexs));
   });
 });
 
-function updateSelectedCardsInput() {
+
+function validadeUploadInput() {
+    if (!fileInput.value) {
+        fileNameSpan.innerHTML = "<b>Você não selecionou nenhuma imagem do comprovante</b>";
+    }
+}
+
+function updateSelectedCardsInput(event) {
   document.getElementById("atividades").value = [
     ...document.querySelectorAll(".card.selected h3"),
   ]
     .map((e) => e.innerText)
     .join("," + "\n");
+
+    localStorage.clear();
 }
 
 function getSelectedCardsValue() {
@@ -128,3 +142,20 @@ fileInput.addEventListener("change", function () {
     fileNameSpan.textContent = "";
   }
 });
+
+
+window.onload = function () {
+    selectedCardIndexs = JSON.parse(localStorage.getItem('cards'))
+
+    if (Array.isArray(selectedCardIndexs)) {
+        cards.forEach((card, index) => {
+            if (selectedCardIndexs.includes(index)) {
+                card.classList.add("selected");
+                card.style.backgroundColor = "#56f86c";
+                card.style.border = "1px solid #008b00";
+            }
+        })
+    } else {
+        selectedCardIndexs = []
+    }
+};
