@@ -18,7 +18,8 @@
 
   --bg-light: hsl(180, 14%, 97%);
 
-  font-size: 62.5%; /* 1rem = 10px */
+  font-size: 62.5%;
+  /* 1rem = 10px */
 
   --nav-height: 7.2rem;
 }
@@ -141,6 +142,7 @@ section .content p {
   margin-inline: auto;
   margin-top: 3.2rem;
 }
+
 #button-cart:hover {
   background-color: rgb(0, 105, 0);
   cursor: pointer;
@@ -210,7 +212,7 @@ body.menu-expanded {
 }
 
 /* Aplicar para todos, exceto o nav */
-body.menu-expanded > :not(nav) {
+body.menu-expanded> :not(nav) {
   visibility: hidden;
 }
 
@@ -341,13 +343,16 @@ body.menu-expanded button path {
   width: 26.4rem;
   display: block;
   margin-inline: auto;
-  object-position: 0 2rem; /*Posicionamento da imagem: valor1 mexe na linha, valor2 na coluna*/
+  object-position: 0 2rem;
+  /*Posicionamento da imagem: valor1 mexe na linha, valor2 na coluna*/
 }
 
 #home .stats {
   width: 100%;
-  padding-block: 4rem; /* padding-block = top e botton | padding-inline = left e right */
-  margin-inline: auto; /* referente às propriedades dos eixos x e y */
+  padding-block: 4rem;
+  /* padding-block = top e botton | padding-inline = left e right */
+  margin-inline: auto;
+  /* referente às propriedades dos eixos x e y */
 
   background-color: var(--brand-beige);
   border: 1px solid var(--brand-light);
@@ -407,9 +412,11 @@ body.menu-expanded button path {
   text-align: left;
   background-color: var(--brand-beige);
 }
+
 #about h2 {
   margin-bottom: 2.4rem;
 }
+
 #about .content p {
   margin-top: 2.4rem;
   margin-bottom: 6rem;
@@ -446,6 +453,7 @@ footer {
 
   color: white;
 }
+
 /* Display inline n�o aceita margin, width, height */
 footer .logo {
   display: inline-block;
@@ -496,6 +504,7 @@ footer .social-links {
   text-decoration: none;
   color: #000000;
 }
+
 .linkContato:hover {
   cursor: pointer;
   text-decoration: underline;
@@ -691,7 +700,7 @@ footer .social-links {
   }
 
   /* Pegando o stat que tem um stat anterior */
-  #home .stats .stat + .stat {
+  #home .stats .stat+.stat {
     border-left: 1px solid var(--primary-color);
   }
 
