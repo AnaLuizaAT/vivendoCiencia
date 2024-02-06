@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Configurações do e-mail de confirmação
     $confirmationMail->setFrom('contato.vivendociencia2@gmail.com', 'VivendoCiencia');
     $confirmationMail->addAddress($email, $nome); // Envia a confirmação para o e-mail fornecido no formulário
-    $confirmationMail->Subject = 'Confirmação de Recebimento de Compra';
+    $confirmationMail->Subject = 'Recebimento de Compra';
     $confirmationMail->Body = "Olá " . $nome . ",\n\n";
     $confirmationMail->Body .= "Recebemos seu pedido de compra com sucesso!\n";
     $confirmationMail->Body .= "Detalhes do pedido:\n";
