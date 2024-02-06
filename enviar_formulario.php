@@ -14,40 +14,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comprovante_nome = $_FILES["comprovante"]["name"];
     $comprovante_temp = $_FILES["comprovante"]["tmp_name"];
 
-    // Crie uma instância do PHPMailer
-    $mail = new PHPMailer\PHPMailer\PHPMailer();
+    // Crie uma instância do PHPMailer para enviar o e-mail de confirmação
+    $confirmationMail = new PHPMailer\PHPMailer\PHPMailer();
 
-    // Configurações do servidor SMTP
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth = true;
+    // Configurações do servidor SMTP para o e-mail de confirmação
+    $confirmationMail->isSMTP();
+    $confirmationMail->Host = 'smtp.gmail.com';
+    $confirmationMail->SMTPAuth = true;
     // senha desse email ae: BATATADOCE@123
     // a autenticação de dois fatores ta no celular do chris <3 
     // Atenção, provavelmente você não precisará mexer nesse e-mail aqui em baixo
-    $mail->Username = 'contato.vivendociencia2@gmail.com';
-    $mail->Password = 'fgddjaorfyniwbmn';
-    $mail->Port = 587;
+    $confirmationMail->Username = 'contato.vivendociencia2@gmail.com'; // Coloque o seu e-mail aqui
+    $confirmationMail->Password = 'fgddjaorfyniwbmn'; // Coloque a sua senha aqui
+    $confirmationMail->Port = 587;
 
-    // Configurações do email
-    $mail->setFrom('contato.vivendociencia2@gmail.com', 'VivendoCiencia');
-    $mail->addAddress('profvivendo.ciencia@gmail.com', 'VivendoCiencia');
-    $mail->Subject = 'Novo pedido de compra';
-    $mail->Body = "Nome: " . $nome . "\n";
-    $mail->Body .= "E-mail: " . $email . "\n";
-    $mail->Body .= "Perfil do Instagram ou número do WhatsApp: " . $instagram . "\n";
-    $mail->Body .= "Atividades:\n" . $atividades . "\n\n";
-    $mail->Body .= "Comprovante de Pagamento em anexo: \n";
+    // Configurações do e-mail de confirmação
+    $confirmationMail->setFrom('contato.vivendociencia2@gmail.com', 'VivendoCiencia');
+    $confirmationMail->addAddress($email, $nome); // Envia a confirmação para o e-mail fornecido no formulário
+    $confirmationMail->Subject = 'Confirmação de Recebimento de Compra';
+    $confirmationMail->Body = "Olá " . $nome . ",\n\n";
+    $confirmationMail->Body .= "Recebemos seu pedido de compra com sucesso!\n";
+    $confirmationMail->Body .= "Detalhes do pedido:\n";
+    $confirmationMail->Body .= "Atividades: " . $atividades . "\n";
+    // Adicione mais informações conforme necessário
+
+    // Verifique se o e-mail de confirmação foi enviado com sucesso
+    if (!$confirmationMail->send()) {
+        // Exiba uma mensagem de erro, se houver algum problema no envio do e-mail de confirmação
+        echo "Erro ao enviar o e-mail de confirmação: " . $confirmationMail->ErrorInfo;
+    }
+
+    // Crie uma instância do PHPMailer para enviar o e-mail de pedido
+    $orderMail = new PHPMailer\PHPMailer\PHPMailer();
+
+    // Configurações do servidor SMTP para o e-mail de pedido
+    $orderMail->isSMTP();
+    $orderMail->Host = 'smtp.gmail.com';
+    $orderMail->SMTPAuth = true;
+    $orderMail->Username = 'contato.vivendociencia2@gmail.com';
+    $orderMail->Password = 'fgddjaorfyniwbmn';
+    $orderMail->Port = 587;
+
+    // Configurações do e-mail de pedido
+    $orderMail->setFrom('contato.vivendociencia2@gmail.com', 'VivendoCiencia');
+    $orderMail->addAddress('profvivendo.ciencia@gmail.com', 'VivendoCiencia');
+    $orderMail->Subject = 'Novo pedido de compra';
+    $orderMail->Body = "Nome: " . $nome . "\n";
+    $orderMail->Body .= "E-mail: " . $email . "\n";
+    $orderMail->Body .= "Perfil do Instagram ou número do WhatsApp: " . $instagram . "\n";
+    $orderMail->Body .= "Atividades:\n" . $atividades . "\n\n";
+    $orderMail->Body .= "Comprovante de Pagamento em anexo: \n";
 
     // Anexar o comprovante como anexo
-    $mail->addAttachment($comprovante_temp, $comprovante_nome);
+    $orderMail->addAttachment($comprovante_temp, $comprovante_nome);
 
-    // Verifique se o email foi enviado com sucesso
-    if ($mail->send()) {
+    // Verifique se o e-mail de pedido foi enviado com sucesso
+    if ($orderMail->send()) {
         // Redirecione para uma página de confirmação
         header("Location: confirmacao.html");
         exit;
     } else {
-        // Exiba uma mensagem de erro, se houver algum problema no envio do email
-        echo "Erro ao enviar o email: " . $mail->ErrorInfo;
+        // Exiba uma mensagem de erro, se houver algum problema no envio do e-mail de pedido
+        echo "Erro ao enviar o email de pedido: " . $orderMail->ErrorInfo;
     }
 }
