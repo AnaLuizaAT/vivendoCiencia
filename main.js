@@ -83,9 +83,9 @@ cards.forEach((card, index) => {
 
 
 function validadeUploadInput() {
-    if (!fileInput.value) {
-        fileNameSpan.innerHTML = "<b>Você não selecionou nenhuma imagem do comprovante</b>";
-    }
+  if (!fileInput.value) {
+    fileNameSpan.innerHTML = "<b>Você não selecionou nenhuma imagem do comprovante</b>";
+  }
 }
 
 function updateSelectedCardsInput(event) {
@@ -95,7 +95,7 @@ function updateSelectedCardsInput(event) {
     .map((e) => e.innerText)
     .join("," + "\n");
 
-    localStorage.clear();
+  localStorage.clear();
 }
 
 function getSelectedCardsValue() {
@@ -145,17 +145,17 @@ fileInput.addEventListener("change", function () {
 
 
 window.onload = function () {
-    selectedCardIndexs = JSON.parse(localStorage.getItem('cards'))
+  selectedCardIndexs = JSON.parse(localStorage.getItem('cards'))
 
-    if (Array.isArray(selectedCardIndexs)) {
-        cards.forEach((card, index) => {
-            if (selectedCardIndexs.includes(index)) {
-                card.classList.add("selected");
-                card.style.backgroundColor = "#56f86c";
-                card.style.border = "1px solid #008b00";
-            }
-        })
-    } else {
-        selectedCardIndexs = []
-    }
+  if (Array.isArray(selectedCardIndexs)) {
+    cards.forEach((card, index) => {
+      if (selectedCardIndexs.includes(index)) {
+        card.classList.add("selected");
+        card.style.backgroundColor = "#56f86c";
+        card.style.border = "1px solid #008b00";
+      }
+    })
+  } else {
+    selectedCardIndexs = []
+  }
 };
